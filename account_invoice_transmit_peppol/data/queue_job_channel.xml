@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_transmit_peppol" model="queue.job.channel">
+        <field name="name">peppol</field>
+        <field name="parent_id" ref="account_invoice_transmit.invoice_transmit" />
+    </record>
+</odoo>
