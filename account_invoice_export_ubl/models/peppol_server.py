@@ -17,8 +17,8 @@ class PeppolServer(models.Model):
     name = fields.Char(default="Edido")
     url = fields.Char(default="https://api.edido.eu/peppol/send_ubl", required=True)
     url_feedback = fields.Char(default="https://api.edido.eu/peppol/get_sending_status")
-    user = fields.Char(copy=False)
-    password = fields.Char(copy=False)
+    account_user = fields.Char(string="User", copy=False)
+    account_password = fields.Char(string="Password", copy=False)
 
     history_ids = fields.One2many(
         "peppol.history",
@@ -29,7 +29,7 @@ class PeppolServer(models.Model):
 
     def _auth(self):
         self.ensure_one()
-        return HTTPBasicAuth(self.user or "", self.password or "")
+        return HTTPBasicAuth(self.account_user or "", self.account_password or "")
 
     def _log(self, record, document):
         self.ensure_one()
