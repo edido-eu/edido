@@ -3,7 +3,7 @@
 
 {
     "name": "Account Invoice Export UBL",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Invoicing Management",
     "license": "AGPL-3",
     "summary": "Send UBL Invoice to Peppol",

@@ -126,7 +126,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: account_invoice_export_ubl
-#: model:ir.model.fields,field_description:account_invoice_export_ubl.field_peppol_server_password
+#: model:ir.model.fields,field_description:account_invoice_export_ubl.field_peppol_server_account_password
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -169,7 +169,7 @@ msgid "Url feedback"
 msgstr "Url feedback"
 
 #. module: account_invoice_export_ubl
-#: model:ir.model.fields,field_description:account_invoice_export_ubl.field_peppol_server_user
+#: model:ir.model.fields,field_description:account_invoice_export_ubl.field_peppol_server_account_user
 msgid "User"
 msgstr "Utilisateur"
 
