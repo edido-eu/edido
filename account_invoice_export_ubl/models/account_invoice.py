@@ -17,6 +17,8 @@ class AccountMove(models.Model):
     def peppol_export_invoice(self):
         """Export ebill to external server and update the chatter."""
         invoices_in_error = self.browse()
+        if not self:
+            return _("Nothing to send")
         for invoice in self:
             if not invoice.is_invoice():
                 continue
@@ -37,16 +39,15 @@ class AccountMove(models.Model):
                     values["error_detail"] = e.message
                 else:
                     values["error_detail"] = str(e)
-                with odoo.api.Environment.manage():
-                    with odoo.registry(self.env.cr.dbname).cursor() as new_cr:
-                        # Create a new environment with new cursor database
-                        new_env = odoo.api.Environment(
-                            new_cr, self.env.uid, self.env.context
-                        )
-                        # The chatter of the invoice need to be updated, when the job fails
-                        invoice.with_env(new_env)._peppol_sending_log_error(values)
+                with odoo.registry(self.env.cr.dbname).cursor() as new_cr:
+                    # Create a new environment with new cursor database
+                    new_env = odoo.api.Environment(
+                        new_cr, self.env.uid, self.env.context
+                    )
+                    # The chatter of the invoice need to be updated, when the job fails
+                    invoice.with_env(new_env)._peppol_sending_log_error(values)
         if invoices_in_error == self:
-            raise UserError("Peppol sending failed")
+            raise UserError(_("Peppol sending failed for %s") % ", ".join(invoices_in_error.mapped("display_name")))
 
     def _peppol_export_invoice(self):
         """Export electronic invoice to external service."""
@@ -54,7 +55,7 @@ class AccountMove(models.Model):
         ubl = self.generate_ubl_xml_string()
         server = self.env.user.company_id.peppol_server_id.sudo()
         if not server:
-            raise UserError("Please define peppol server in the Accounting Settings")
+            raise UserError(_("Please define peppol server in the Accounting Settings"))
         res = server._send_ubl(self, ubl)
         self.write({
             "invoice_exported": True,

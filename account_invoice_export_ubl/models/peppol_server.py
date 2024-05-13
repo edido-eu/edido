@@ -46,7 +46,7 @@ class PeppolServer(models.Model):
     def _send_ubl(self, record, ubl):
         self.ensure_one()
         file_data = {"file": ubl}
-        response = requests.post(self.url, auth=self._auth(), files=file_data)
+        response = requests.post(self.url.lower(), auth=self._auth(), files=file_data)
         if response.status_code != 200:
             raise UserError(
                 _(
@@ -71,7 +71,7 @@ class PeppolServer(models.Model):
                 continue
             data = {"md5": [s.md5 for s in sending]}
             response = requests.post(
-                server.url_feedback, auth=server._auth(), json=data
+                server.url_feedback.lower(), auth=server._auth(), json=data
             )
             if response.status_code != 200:
                 raise UserError(
