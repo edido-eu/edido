@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+<!--
+  Copyright 2024 Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
+  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+    <record id="account_invoice_transmit_view" model="ir.ui.view">
+        <field name="name">account.invoice.transmit.form peppol</field>
+        <field name="model">account.invoice.transmit</field>
+        <field name="inherit_id" ref="account_invoice_transmit.account_invoice_transmit_view"/>
+        <field name="arch" type="xml">
+            <field name="count_transmit_post" position="before">
+                <field name="count_transmit_peppol"/>
+            </field>
+            <xpath expr="//button[@name='button_print']" position="before">
+                <button
+                    string="Peppol"
+                    name="button_peppol"
+                    attrs="{'invisible':[('count_transmit_peppol', '=', 0)]}"
+                    help="Send invoices having an invoice transmit method 'peppol'. Also mark as sent"
+                    type="object"
+                    class="btn-primary"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
