@@ -5,22 +5,23 @@
         <field name="model">peppol.server</field>
         <field name="arch" type="xml">
             <form>
-                <group>
-                    <field name="name" />
-                    <field name="url" />
-                    <field name="url_feedback" />
-                    <field name="account_user" />
-                    <field name="account_password" password="True" />
-                </group>
-                <group>
-                    <field name="history_ids">
-                        <tree>
-                            <field name="create_date"/>
-                            <field name="document"/>
-                            <field name="is_sending"/>
-                        </tree>
-                    </field>
-                </group>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="button_peppol_history" type="object"
+                            string="History"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                        />
+                    </div>
+                    <group>
+                        <field name="name" />
+                        <field name="url" />
+                        <field name="url_feedback" />
+                        <field name="account_user" />
+                        <field name="account_password" password="True" />
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
