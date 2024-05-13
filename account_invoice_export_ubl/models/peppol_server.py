@@ -87,6 +87,12 @@ class PeppolServer(models.Model):
                 if status.get(msg["md5"]) and msg.document:
                     msg.document._peppol_export_confirmed()
 
+    def button_peppol_history(self):
+        action = self.env.ref("account_invoice_export_ubl.peppol_history_action").read()[0]
+        if self.env.context.get("active_model") == "peppol_server":
+            action["domain"] = [("server_id", "=", self.env.context.get("active_id"))]
+        return action
+
 
 class PeppolHistory(models.Model):
     _name = "peppol.history"

@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "views/account_invoice.xml",
         "views/peppol_server.xml",
+        "views/peppol_history.xml",
         "views/res_config_settings.xml",
         "data/template.xml",
         "data/transmit_method.xml",
