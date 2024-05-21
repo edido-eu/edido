@@ -3,6 +3,8 @@
 
 from odoo import _, api, fields, models
 
+from odoo.addons.queue_job.job import identity_exact
+
 
 class AccountInvoiceSent(models.TransientModel):
     _inherit = "account.invoice.transmit"
@@ -39,6 +41,7 @@ class AccountInvoiceSent(models.TransientModel):
         description = _("Mass generating invoice for peppol sending")
         invoices.with_delay(
             description=description,
+            identity_key=identity_exact,
             priority=40,
             channel="root.invoice_transmit.peppol",
         )._transmit_invoice_by_peppol()
